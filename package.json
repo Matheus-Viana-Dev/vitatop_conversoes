@@ -1,0 +1,34 @@
+{
+  "name": "vitatop-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page moderna para VitaTop - Cuidado Natural para Profissionais de Saúde",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 8000 -o",
+    "dev": "npx live-server --port=8000 --open=/",
+    "build": "echo 'Build process would go here'",
+    "lint": "echo 'Linting process would go here'"
+  },
+  "keywords": [
+    "landing-page",
+    "vitatop",
+    "saude",
+    "produtos-naturais",
+    "profissionais-saude",
+    "marketing-digital"
+  ],
+  "author": "VitaTop Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitatop/landing-page.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vitatop/landing-page/issues"
+  },
+  "homepage": "https://github.com/vitatop/landing-page#readme"
+}

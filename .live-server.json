@@ -1,0 +1,18 @@
+{
+  "port": 8000,
+  "host": "localhost",
+  "root": "./",
+  "open": true,
+  "file": "index.html",
+  "wait": 1000,
+  "logLevel": 2,
+  "cors": true,
+  "https": false,
+  "proxy": false,
+  "ignore": [
+    "node_modules",
+    ".git",
+    "*.md",
+    "*.json"
+  ]
+}
