@@ -40,12 +40,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function showStep1() {
         step1.classList.add('active');
         step2.classList.remove('active');
+        
+        // Hide any existing messages when showing step 1
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        if (successMessage) successMessage.style.display = 'none';
+        if (errorMessage) errorMessage.style.display = 'none';
     }
     
     function showStep2() {
         step1.classList.remove('active');
         step2.classList.add('active');
         populateConfirmation();
+        
+        // Hide any existing messages when showing step 2
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        if (successMessage) successMessage.style.display = 'none';
+        if (errorMessage) errorMessage.style.display = 'none';
     }
     
     function collectFormData() {
@@ -57,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function populateConfirmation() {
-        document.getElementById('confirmNome').textContent = formData.nome;
-        document.getElementById('confirmEmail').textContent = formData.email;
-        document.getElementById('confirmWhatsapp').textContent = formData.whatsapp;
+        document.getElementById('confirmNome').value = formData.nome;
+        document.getElementById('confirmEmail').value = formData.email;
+        document.getElementById('confirmWhatsapp').value = formData.whatsapp;
     }
     
     function validateStep1() {
@@ -149,86 +161,108 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Formatação automática do WhatsApp
-    const whatsappInput = document.getElementById('whatsapp');
-    whatsappInput.addEventListener('input', function(e) {
+    // Formatação do telefone
+    document.getElementById('whatsapp').addEventListener('input', function(e) {
         let value = e.target.value.replace(/\D/g, '');
-        
-        if (value.length <= 11) {
-            if (value.length <= 2) {
-                value = value;
-            } else if (value.length <= 6) {
-                value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
-            } else if (value.length <= 10) {
-                value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
-            } else {
-                value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
-            }
-        }
-        
+        value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+        value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+        e.target.value = value;
+    });
+    
+    // Formatação do telefone na etapa 2
+    document.getElementById('confirmWhatsapp').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+        value = value.replace(/(\d)(\d{4})$/, '$1-$2');
         e.target.value = value;
     });
     
     // Submissão do formulário
     async function submitForm() {
-        // Mostra estado de loading
-        submitFormBtn.classList.add('loading');
-        submitFormBtn.disabled = true;
-        submitFormBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        const button = document.querySelector('#submitForm');
+        const buttonText = document.querySelector('.button-text');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Reset messages
+        if (successMessage) successMessage.style.display = 'none';
+        if (errorMessage) errorMessage.style.display = 'none';
+        
+        // Create loading element
+        const loading = document.createElement('span');
+        loading.className = 'loading-spinner';
+        loading.innerHTML = '⏳';
+        loading.style.marginRight = '8px';
+        loading.style.animation = 'spin 1s linear infinite';
+        
+        // Show loading
+        if (buttonText) {
+            buttonText.innerHTML = '⏳ Processando...';
+        }
+        button.disabled = true;
+        
+        // Collect form data from confirmation step
+        const formData = {
+            nome: document.getElementById('confirmNome').value,
+            email: document.getElementById('confirmEmail').value,
+            telefone: 55 + document.getElementById('confirmWhatsapp').value.replace(/\D/g, ''),
+            timestamp: new Date().toISOString(),
+            source: 'ebook_landing_page',
+            lead_magnet: 'guia_afiliados_produtos_naturais'
+        };
         
         try {
-            // Prepara dados para envio
-            const data = {
-                ...formData,
-                timestamp: new Date().toISOString(),
-                source: 'landing-page-profissionais'
-            };
+            // Simular envio para backend
+            const response = await fetch('https://nodesapi.tecskill.com.br/webhook/4b5e947d-3132-4415-a82a-828348c9da9e/4b5e947d-3132-4415-a82a-828348c9da9e/MESSAGES_UPSERT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
             
-            // Simula envio (substitua pela sua API real)
-            await simulateFormSubmission(data);
-            
-            // Sucesso
-            showNotification('🎉 Parabéns! Seu eBook será enviado em até 5 minutos!', 'success');
-            
-            // Reset do formulário
-            form.reset();
-            showStep1();
-            
-            // Analytics/Tracking (opcional)
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'form_submit', {
-                    event_category: 'engagement',
-                    event_label: 'lead_form_profissionais'
-                });
+            if (response.ok) {
+                // Hide loading and show success
+                if (buttonText) {
+                    buttonText.innerHTML = '<i class="fas fa-check"></i> Confirmar e Enviar';
+                }
+                button.disabled = false;
+                
+                if (successMessage) successMessage.style.display = 'block';
+                form.reset();
+                
+                // Reset to step 1 after 3 seconds
+                setTimeout(() => {
+                    showStep1();
+                }, 3000);
+                
+                // Google Analytics tracking (se implementado)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-CONVERSION_ID/CONVERSION_LABEL'
+                    });
+                }
+                
+                // Facebook Pixel tracking (se implementado)
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead');
+                }
+            } else {
+                throw new Error('Erro no servidor');
             }
-            
         } catch (error) {
-            console.error('Erro ao enviar formulário:', error);
-            showNotification('Ops! Algo deu errado. Tente novamente.', 'error');
-        } finally {
-            // Remove estado de loading
-            submitFormBtn.classList.remove('loading');
-            submitFormBtn.disabled = false;
-            submitFormBtn.innerHTML = '<i class="fas fa-check"></i> Confirmar e Enviar';
+            console.error('Erro:', error);
+            if (errorMessage) errorMessage.style.display = 'block';
+            
+            // Reset button only on error
+            if (buttonText) {
+                buttonText.innerHTML = '<i class="fas fa-check"></i> Confirmar e Enviar';
+            }
+            button.disabled = false;
         }
     }
     
-    // Simula envio do formulário (substitua pela sua API real)
-    function simulateFormSubmission(data) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Aqui você faria a chamada real para sua API
-                console.log('Dados do formulário:', data);
-                
-                // Simula sucesso 90% das vezes
-                if (Math.random() > 0.1) {
-                    resolve(data);
-                } else {
-                    reject(new Error('Erro simulado'));
-                }
-            }, 2000);
-        });
-    }
+
     
     // Sistema de notificações
     function showNotification(message, type = 'info') {

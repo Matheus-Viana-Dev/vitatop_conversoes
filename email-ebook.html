@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Ebook Chegou! - VitaTop</title>
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #11998E 0%, #38EF7D 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #11998E;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .ebook-section {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #11998E;
+        }
+
+        .ebook-title {
+            color: #11998E;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .benefits {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .benefits li {
+            padding: 8px 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .benefits li i {
+            color: #11998E;
+            margin-right: 8px;
+        }
+
+        .bonus-section {
+            background: linear-gradient(135deg, #11998E 0%, #38EF7D 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .bonus-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .bonus-section p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .download-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #11998E 0%, #38EF7D 100%);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+        }
+
+        .download-info {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .testimonial {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #38EF7D;
+            font-style: italic;
+        }
+
+        .testimonial p {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-author {
+            color: #11998E;
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .reminder {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .reminder p {
+            color: #856404;
+            font-weight: 500;
+        }
+
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            color: #38EF7D;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            margin: 15px 0;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .unsubscribe {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+        }
+
+        .unsubscribe a {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .unsubscribe a:hover {
+            color: #38EF7D;
+        }
+
+        .fa {
+            margin-right: 8px;
+        }
+
+        .header .fa {
+            font-size: 1.2em;
+        }
+
+        .ebook-title .fa {
+            color: #11998E;
+        }
+
+        .bonus-section .fa {
+            color: white;
+        }
+
+        .download-section .fa {
+            color: #11998E;
+        }
+
+        .download-btn .fa {
+            color: white;
+        }
+
+        .contact-info .fa {
+            color: #38EF7D;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 0;
+                box-shadow: none;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .intro h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-gift"></i> Seu Ebook Chegou!</h1>
+            <p>Olá! Parabéns pela sua decisão! <i class="fas fa-rocket"></i></p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Intro -->
+            <div class="intro">
+                <h2>Você deu o primeiro passo para transformar sua vida financeira!</h2>
+                <p>Aqui está seu ebook gratuito que vai te ensinar como centenas de pessoas estão ganhando de <strong>R$ 3.000 a R$ 15.000 por mês</strong> como afiliados de produtos naturais.</p>
+            </div>
+
+            <!-- Ebook Section -->
+            <div class="ebook-section">
+                <h3 class="ebook-title"><i class="fas fa-book"></i> Guia Completo para Ganhar uma Renda Extra com Suplementos Naturais</h3>
+                <ul class="benefits">
+                    <li><i class="fas fa-check-circle"></i> Como escolher produtos que vendem</li>
+                    <li><i class="fas fa-check-circle"></i> Estratégias de marketing digital</li>
+                    <li><i class="fas fa-check-circle"></i> Scripts de vendas aprovados</li>
+                    <li><i class="fas fa-check-circle"></i> Como construir autoridade no nicho</li>
+                </ul>
+            </div>
+
+            <!-- Bonus Section -->
+            <div class="bonus-section">
+                <h3><i class="fas fa-gift"></i> BÔNUS ESPECIAL</h3>
+                <p><strong>Acesso ao programa VitaTop</strong></p>
+                <p>Comece a ganhar hoje mesmo!</p>
+            </div>
+
+            <!-- Download Section -->
+            <div class="download-section">
+                
+                <a href="#" class="download-btn"><i class="fas fa-fire"></i> BAIXAR EBOOK GRATUITO</a>
+                <p class="download-info">Download instantâneo</p>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <p>"Segui o ebook e em 2 meses já estava ganhando R$ 4.500 mensais como afiliada. Recomendo!"</p>
+                <p class="testimonial-author">- Marina Santos, Afiliada VitaTop</p>
+            </div>
+
+            <!-- Reminder -->
+            <div class="reminder">
+                <p><strong>Lembre-se:</strong> Sua transformação financeira começa agora! Não deixe este material parado.</p>
+            </div>
+
+            <!-- Support -->
+            <div style="text-align: center; margin: 25px 0;">
+                <p>Qualquer dúvida, responda este email.</p>
+                <p style="color: #11998E; font-weight: 600; margin-top: 15px;">Sucesso! <i class="fas fa-star"></i></p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>VitaTop </h3>
+            <h3>Passe do seu Melhor para o seu Maximo</h3>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> contato@vitatop.com.br</p>
+                <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+            </div>
+            <div class="unsubscribe">
+                <a href="#">Não quer mais receber emails? Clique aqui para cancelar.</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
